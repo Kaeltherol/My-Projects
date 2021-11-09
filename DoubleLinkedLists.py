@@ -74,34 +74,3 @@ class DLinkedList():
         pointer.nextval.prevval = pointer
        
         print('Value deleted correctly!')  
-
-
-list2 = DLinkedList()
-list2.headval = Node('Mon')
-e2 = Node('Tue')
-e3 = Node('Wed')
-e4 = Node('Thu')
-e5 = Node('Fry')
-e6 = Node('Sat')
-e7 = Node('Sun')
-
-list2.headval.nextval = e2
-e2.nextval = e3
-e3.nextval = e4
-e4.nextval = e5
-e5.nextval = e6
-e6.nextval = e7
-e7.nextval = None
-
-e2.prevval = list2.headval
-e3.prevval = e2
-e4.prevval = e3
-e5.prevval = e4
-e6.prevval = e5
-e7.prevval = e6
-
-list2.add_value('Thu',4)
-list2.delete_value(4)
-
-for i in range(1,list2.length_dlist()-1):
-    print(list2.value(i).dataval, list2.value(i).nextval.dataval, list2.value(i).prevval.dataval)
