@@ -5,7 +5,7 @@ def pareto_chart(series):
   from matplotlib.ticker import PercentFormatter
   from tabulate import tabulate
 
-  plt.style.use('fivethirtyeight')
+  #plt.style.use('fivethirtyeight')
 
   fig = plt.figure()
   ax = fig.add_subplot(1,1,1)
