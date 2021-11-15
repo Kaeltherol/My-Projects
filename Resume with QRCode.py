@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 
 x = 1
-
+y = 0
+#set colors
+body_color = '#000000'
+#headers_color = '#58C1B2'
+headers_color = '#0000ff'
 # Text Variables
 
 class Block:
@@ -12,7 +16,7 @@ class Block:
     self.posy = 0.0
     self.weight = 'regular'
     self.color = '#000000'
-    self.size = 10
+    self.size = 10-y
     self.alpha = 1
     self.prev = None
     self.dist = 0.02
@@ -28,8 +32,8 @@ class Header(Block):
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
-    self.color = '#000000'
-    self.size = 10*mltply
+    self.color = headers_color
+    self.size = 12*mltply-y
     self.alpha = 1
     self.dist = 0.025
 
@@ -39,7 +43,7 @@ class Top_Header(Block):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.color = '#000000'
-    self.size = 10*mltply
+    self.size = 10*mltply-y
     self.alpha = 0.5
     self.dist = 0.035
 
@@ -49,7 +53,7 @@ class Name(Block):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.color = '#000000'
-    self.size = 20*mltply
+    self.size = 20*mltply-y
     self.alpha = 1
     self.dist = 0.017
 
@@ -59,7 +63,7 @@ class Info(Block):
     Block.__init__(self, txt_str)
     self.weight = 'regular'
     self.color = '#000000'
-    self.size = 20*mltply
+    self.size = 20*mltply-y
     self.alpha = 1
 
 class Lateral(Block):
@@ -67,7 +71,7 @@ class Lateral(Block):
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'regular'
-    self.size = 9*mltply
+    self.size = 9*mltply-y
     self.alpha = 1
     self.color = '#ffffff'
 
@@ -76,7 +80,7 @@ class Lateral_header(Block):
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
-    self.size = 12*mltply
+    self.size = 13*mltply-y
     self.alpha = 1
     self.color = '#ffffff'
     self.dist = 0.025
@@ -86,17 +90,27 @@ class Lateral_title(Block):
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
-    self.size = 11*mltply
+    self.size = 11*mltply-y
     self.alpha = 1
     self.color = '#ffffff'
-    self.dist = 0.025    
+    self.dist = 0.025
+
+class Lateral_info(Block):
+
+  def __init__(self, txt_str, mltply = 1):
+    Block.__init__(self, txt_str)
+    self.weight = 'bold'
+    self.size = 9.5*mltply-y
+    self.alpha = 1
+    self.color = '#ffffff'
+    self.dist = 0.025       
 
 class Title(Block):
 
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
-    self.size = 10*mltply
+    self.size = 10*mltply-y
     self.alpha = 1
     self.dist = 0.025
     self.yshift = 0.005
@@ -106,7 +120,7 @@ class Place(Block):
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
-    self.size = 9.5*mltply
+    self.size = 9.5*mltply-y
     self.alpha = 1
     self.dist = 0.025
 
@@ -114,7 +128,7 @@ class Descr(Block):
 
   def __init__(self, txt_str, mltply = 1):
     Block.__init__(self, txt_str)
-    self.size = 9*mltply
+    self.size = 9*mltply-y
     self.alpha = 1
     self.dist = 0.025
 
@@ -124,7 +138,7 @@ class Time(Block):
     Block.__init__(self, txt_str)
     self.xshift = .55
     self.yshift = -.025
-    self.size = 9*mltply
+    self.size = 9*mltply-y
     self.alpha = 0.6
     self.dist = 0.025
 
@@ -149,52 +163,51 @@ class Paragraph:
       train.blocks[i].__annotate__() 
     self.tail = train.blocks[-1]
 
-#set colors
-body_color = '#000000'
-headers_color = '#58C1B2'
+
 
 #set font
 plt.rcParams['font.family'] = 'Sans-serif'
-plt.rcParams['font.sans-serif'] = 'STIXGeneral'
+plt.rcParams['font.sans-serif'] = 'Calibri'
 
 # Text Variables
 #infos
-Header1 = Top_Header('  Resume generated in Python - Full sourcecode in my portfolio',mltply = x)
+Header1 = Top_Header(' Resume made in Python - Code in my portfolio',mltply = x)
 Name1 = Name('STEFANO GALDO',mltply = x)
 Pers1 = Descr('Birth: 27/11/1982 Tione di Trento, Italy',mltply = x)
-Title1 = Title('Project Engineer - Lean Six Sigma Black Belt\nData Science & Analytics',mltply = x)
-Contact1 = Lateral_title('Krakow, PL\n\n+39-3894358980\nstefanogaldo@gmail.com\n\nMy LinkedIn:\nlinkedin.com/in/stefano-galdo\n\nMy Github:\ngithub.com/Kaeltherol',mltply = x)
+Title1 = Title('Project Engineer - Lean Six Sigma Black Belt\nData Science & Analytics\nProgrammer Enthusiast',mltply = x)
+
+
+
+Contact_info = Lateral_header('Contact Info', mltply= x)
+Contact1 = Lateral_info('\nLocation: Krakow, PL\nTel: +39-3894358980\neMail: stefanogaldo@gmail.com\n\nMy LinkedIn:\nlinkedin.com/in/stefano-galdo\n\nMy Github:\ngithub.com/Kaeltherol',mltply = x)
 
 #projects
 
 ProjectsHeader = Header('PROJECTS', mltply = x)
 
-ProjectOneTitle = Title('Improvement of glass vials quality in Pharmaceutical industry', mltply = x)
+ProjectOneTitle = Title('Improvement of glass vials quality (Pharmaceutical industry)', mltply = x)
 ProjectOneDescL1 = Descr('- Analyzed product data to identify the source of defects', mltply = x)
-ProjectOneDescL2 = Descr('- Cleaned/visualized quality data using pandas/matplotlib libraries in Python', mltply = x)
 
-ProjectTwoTitle = Title('Scoring Supplier OTD (On Time Delivery) in Manufacturing Industry', mltply = x)
+ProjectTwoTitle = Title('Scoring Supplier OTD (On Time Delivery) (Manufacturing industry)', mltply = x)
 ProjectTwoDescL1 = Descr('- Assessing suppliers and purchase department performance', mltply = x)
-ProjectTwoDescL2 = Descr('- Cleaned/visualized purchase data using pandas/matplotlib libraries in Python', mltply = x)
 
 
-ProjectThreeTitle = Title('Increasing Reach and Impressions of a consultant company website', mltply = x)
-ProjectThreeDesc = Descr('- Analyzed Google Analytics Data with pandas/matplotlib libraries in Python', mltply = x)
+ProjectThreeTitle = Title('Increasing Reach and Impressions on website (Consulting company) ', mltply = x)
+ProjectThreeDesc = Descr('- Analyzed Google Analytics Data ', mltply = x)
 
 Portfolio = 'Portfolio website'
 
 #work experience
 
-WorkHeader = Header('EXPERIENCE',mltply = x)
+WorkHeader = Header('WORK EXPERIENCE',mltply = x)
 
 WorkOneTitle = Title('Ravago Italy, Project Engineer',mltply = x)
 WorkOnePlace = Place('Bergamo, Italy',mltply = x)
 
 WorkOneTime = Time('2018-2020',mltply = x)
 WorkOneDescL1 = Descr('- Project Management on Strategic Projects;',mltply = x)
-WorkOneDescL2 = Descr('- Creation of a database in SQL for the implementation',mltply = x)
-WorkOneDescL3 = Descr('  of a CMM Software (ULTIMO);',mltply = x)
-WorkOneDescL4 = Descr('- Technical advice on Capex/Opex',mltply = x)
+WorkOneDescL3 = Descr('- Creation of a database in SQL for the asset tree list',mltply = x)
+WorkOneDescL2 = Descr('- Technical advice on Capex/Opex',mltply = x)
 
 WorkTwoTitle = Title('Proplast / Materials Processing Lab Manager',mltply = x)
 WorkTwoPlace = Place('Rivalta Scrivia, Italy',mltply = x)
@@ -224,8 +237,7 @@ EduOneDesc2L2 = Descr('  control plans, DOE, Measurement System Analysis',mltply
 
 #skills
 
-SkillsHeader = Lateral_header('Computer Skills',mltply=x)
-#SkillsDesc = Lateral('Skills\n- Python\n- Pandas\n- NumPy\n- Data Visualization\n- Data Cleaning\n- Command Line\n- Git and Version Control\n- SQL\n- APIs\n- Probability/Statistics\n- Data Manipulation\n- Excel',mltply =1)
+SkillsHeader = Lateral_header('Core Skills',mltply=x)
 SkillsTitle1 = Lateral_title('Python Skills',mltply =x)
 SkillsDesc1L1 = Lateral('- Data Manipulation/Visualization:',mltply =x)
 SkillsDesc1L2 = Lateral('   Numpy, Pandas, Matplotlib, Seaborn',mltply =x)
@@ -253,12 +265,13 @@ CodeTitle = Lateral_title('View Portfolio', mltply=x)
 
 train_info = Train(Header1, Name1, Pers1)
 train_title = Train(Title1)
-train_projects = Train(ProjectsHeader, ProjectOneTitle, ProjectOneDescL1, ProjectOneDescL2, ProjectTwoTitle, ProjectTwoDescL1, ProjectTwoDescL2, ProjectThreeTitle, ProjectThreeDesc)
-train_work = Train(WorkHeader, WorkOneTitle, WorkOneTime, WorkOnePlace, WorkOneDescL1, WorkOneDescL2, WorkOneDescL3, WorkOneDescL4,
+train_projects = Train(ProjectsHeader, ProjectOneTitle, ProjectOneDescL1, ProjectTwoTitle, ProjectTwoDescL1, ProjectThreeTitle, ProjectThreeDesc)
+train_work = Train(WorkHeader, WorkOneTitle, WorkOneTime, WorkOnePlace, WorkOneDescL1, WorkOneDescL2, WorkOneDescL3,
                             WorkTwoTitle, WorkTwoTime, WorkTwoPlace, WorkTwoDescL1, WorkTwoDescL2, WorkTwoDescL3,
                             WorkThreeTitle, WorkThreeTime, WorkThreePlace, WorkThreeDesc)
 train_education = Train(EduHeader,EduOneTitle,EduOneTime,EduOnePlace,EduOneDesc1L1,EduOneDesc1L2,EduTwoTitle,EduTwoTime,EduOneDesc2L1,EduOneDesc2L2)
 
+train_contact_title = Train(Contact_info)
 train_contacts = Train(Contact1)
 
 train_lateral_header = Train(SkillsHeader)
@@ -281,19 +294,24 @@ fig, ax = plt.subplots(figsize=(8.5*x, 11*x))
 #remove axis
 plt.axis('off')
 
-plt.axvline(x=.99, color='#000000', alpha=0.5, linewidth=300*x)
+plt.axvline(x=.99, color=headers_color, alpha=0.5, linewidth=300*x)
 plt.axhline(y=.8, xmin=0, xmax=1, color='#ffffff', linewidth=3)
 
-personal_data = Paragraph((.02,.98), train_info)
-title = Paragraph((0.02, 0.885), train_title)
-projects = Paragraph((.02, 0.855), train_projects)
+personal_data = Paragraph((.2,.98), train_info)
+title = Paragraph((.2, 0.87), train_title)
+
+projects = Paragraph((.02, 0.82), train_projects)
 work = Paragraph((0.02, 0.605),train_work)
 edu = Paragraph((0.02, 0.2),train_education)
-contact = Paragraph((0.68,0.81),train_contacts)
-skills_0 =Paragraph((0.68,0.775),train_lateral_header)
+
+contact_title = Paragraph((0.76,0.980),train_contact_title)
+contact = Paragraph((0.68,0.82),train_contacts)
+
+skills_0 =Paragraph((0.76,0.775),train_lateral_header)
 skills_1 = Paragraph((0.68,0.735),train_lateral_1)
 skills_2 = Paragraph((0.68,0.49),train_lateral_2)
 skills_3 = Paragraph((0.68,0.370),train_lateral_3)
+
 code = Paragraph((0.68,0.235), train_code)
 
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
@@ -302,7 +320,12 @@ arr_code = mpimg.imread(r'C:\Users\mmari\Pictures\Stefanogaldo.png')
 imagebox = OffsetImage(arr_code, zoom=0.5)
 ab = AnnotationBbox(imagebox, (0.84, 0.12))
 ax.add_artist(ab)
+my_pict = mpimg.imread(r'C:\Users\mmari\Pictures\profile.jpg')
+profilebox = OffsetImage(my_pict, zoom=0.5)
+ab2 = AnnotationBbox(profilebox, (0.1, 0.925))
+ax.add_artist(ab2)
 
-plt.savefig('resumeexample.png', dpi=300, bbox_inches='tight')
+plt.savefig(r'C:\Users\mmari\Pictures\resumeexample.png', dpi=300, bbox_inches='tight')
+plt.savefig(r'C:\Users\mmari\Pictures\resumeexample.pdf', bbox_inches='tight')
 
 plt.show()
