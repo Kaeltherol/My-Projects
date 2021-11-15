@@ -1,9 +1,8 @@
-#importazione librerie
-import requests # per scaricare il database dalla piattaforma
-import pandas as pd # per gestire i database
-from datetime import datetime # per generare la data attuale con cui salvare i files
-from pprint import pprint # per stampare in modo chiaro i dizionari
-import json #per generare file json
+import requests
+import pandas as pd
+from datetime import datetime
+from pprint import pprint
+import json
 
 def rep_dict(dframe,report_name,*args):
   # rep_dict(dataframe, string,*strings)
@@ -126,7 +125,7 @@ tot_profit = {'tot_profit': profit}
 
 #creazione report
 
-output = create_report(top_volume, top_percent, flop_percent,  money_top20, money_vol,top_profit)
+output = create_report(top_volume, top_percent, flop_percent,  money_top20, money_vol, top_profit)
 
 #salvataggio report su file
 
