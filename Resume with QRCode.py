@@ -303,5 +303,6 @@ imagebox = OffsetImage(arr_code, zoom=0.5)
 ab = AnnotationBbox(imagebox, (0.84, 0.12))
 ax.add_artist(ab)
 
+plt.savefig('resumeexample.png', dpi=300, bbox_inches='tight')
 
 plt.show()
