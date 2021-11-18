@@ -5,12 +5,14 @@ y = 0
 #set colors
 body_color = '#000000'
 #headers_color = '#58C1B2'
-headers_color = '#0000ff'
+headers_color = '#00008b'
 # Text Variables
+
+#defining lines as a superclass named Block, with line types with their attributes as child classes
 
 class Block:
 
-  def __init__(self, str_txt):
+  def __init__(self, str_txt: str):
     self.txt = str_txt
     self.posx = 0.0
     self.posy = 0.0
@@ -29,7 +31,7 @@ class Block:
 
 class Header(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.color = headers_color
@@ -39,7 +41,7 @@ class Header(Block):
 
 class Top_Header(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.color = '#000000'
@@ -49,7 +51,7 @@ class Top_Header(Block):
 
 class Name(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.color = '#000000'
@@ -59,7 +61,7 @@ class Name(Block):
 
 class Info(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'regular'
     self.color = '#000000'
@@ -68,7 +70,7 @@ class Info(Block):
 
 class Lateral(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'regular'
     self.size = 9*mltply-y
@@ -77,7 +79,7 @@ class Lateral(Block):
 
 class Lateral_header(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.size = 13*mltply-y
@@ -87,7 +89,7 @@ class Lateral_header(Block):
 
 class Lateral_title(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.size = 11*mltply-y
@@ -97,7 +99,7 @@ class Lateral_title(Block):
 
 class Lateral_info(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.size = 9.5*mltply-y
@@ -107,7 +109,7 @@ class Lateral_info(Block):
 
 class Title(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.size = 10*mltply-y
@@ -117,7 +119,7 @@ class Title(Block):
 
 class Place(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.weight = 'bold'
     self.size = 9.5*mltply-y
@@ -126,7 +128,7 @@ class Place(Block):
 
 class Descr(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.size = 9*mltply-y
     self.alpha = 1
@@ -134,7 +136,7 @@ class Descr(Block):
 
 class Time(Block):
 
-  def __init__(self, txt_str, mltply = 1):
+  def __init__(self, txt_str: str, mltply = 1):
     Block.__init__(self, txt_str)
     self.xshift = .55
     self.yshift = -.025
@@ -142,16 +144,20 @@ class Time(Block):
     self.alpha = 0.6
     self.dist = 0.025
 
+#defining the class train as a succession of lines with structure similar to a linked array
+
 class Train:
 
-  def __init__(self,*args):
+  def __init__(self,*args: Block):
     self.blocks = [arg for arg in args]
     for i in range(1,len(self.blocks)):
       self.blocks[i].prev = self.blocks[i-1]
-    
+
+#the class paragraph make possible to print the Train in the chosen position
+
 class Paragraph:
   
-  def __init__(self, tuple_pos, train):
+  def __init__(self, tuple_pos: float, train: Train):
     train.blocks[0].posx = tuple_pos[0]
     train.blocks[0].posy = tuple_pos[1]
     train.blocks[0].__annotate__()
@@ -172,14 +178,14 @@ plt.rcParams['font.sans-serif'] = 'Calibri'
 # Text Variables
 #infos
 Header1 = Top_Header(' Resume made in Python - Code in my portfolio',mltply = x)
-Name1 = Name('STEFANO GALDO',mltply = x)
-Pers1 = Descr('Birth: 27/11/1982 Tione di Trento, Italy',mltply = x)
-Title1 = Title('Project Engineer - Lean Six Sigma Black Belt\nData Science & Analytics\nProgrammer Enthusiast',mltply = x)
+Name1 = Name('NOME COGNOME',mltply = x)
+Pers1 = Descr('Birth: 01/01/1990 Birthplace, Birthcountry',mltply = x)
+Title1 = Title('Title line1\nTitle line2\nTitle line3',mltply = x)
 
+Info1 = Lateral_header('Contact & Info', mltply= x)
 
-
-Contact_info = Lateral_header('Contact Info', mltply= x)
-Contact1 = Lateral_info('\nLocation: Krakow, PL\nTel: +39-3894358980\neMail: stefanogaldo@gmail.com\n\nMy LinkedIn:\nlinkedin.com/in/stefano-galdo\n\nMy Github:\ngithub.com/Kaeltherol',mltply = x)
+Contact = Lateral_header('Contact', mltply= x)
+Contact1 = Lateral_info('\nLocation: Place, PL\nTel: +xx-123456789 \neMail: nomecognome@email.com\n\nMy LinkedIn:\nlinkedin.com/in/nome-cognome\n\nMy Github:\ngithub.com/NomeCognome',mltply = x)
 
 #projects
 
@@ -201,36 +207,36 @@ Portfolio = 'Portfolio website'
 
 WorkHeader = Header('WORK EXPERIENCE',mltply = x)
 
-WorkOneTitle = Title('Ravago Italy, Project Engineer',mltply = x)
-WorkOnePlace = Place('Bergamo, Italy',mltply = x)
+WorkOneTitle = Title('Company Name, Role',mltply = x)
+WorkOnePlace = Place('Work Place, Work Country',mltply = x)
 
 WorkOneTime = Time('2018-2020',mltply = x)
-WorkOneDescL1 = Descr('- Project Management on Strategic Projects;',mltply = x)
-WorkOneDescL3 = Descr('- Creation of a database in SQL for the asset tree list',mltply = x)
-WorkOneDescL2 = Descr('- Technical advice on Capex/Opex',mltply = x)
+WorkOneDescL1 = Descr('- Description line 1;',mltply = x)
+WorkOneDescL3 = Descr('- Description line 2',mltply = x)
+WorkOneDescL2 = Descr('- Description line 3',mltply = x)
 
-WorkTwoTitle = Title('Proplast / Materials Processing Lab Manager',mltply = x)
-WorkTwoPlace = Place('Rivalta Scrivia, Italy',mltply = x)
+WorkTwoTitle = Title('Company Name, Role',mltply = x)
+WorkTwoPlace = Place('Work Place, Work Country',mltply = x)
 WorkTwoTime = Time('2015-2018',mltply = x)
-WorkTwoDescL1 = Descr('- Management of the polymers processing activities;',mltply = x)
-WorkTwoDescL2 = Descr('- Customized technical assistance for compounding, extrusion',mltply = x)
-WorkTwoDescL3 = Descr('  in different fields of application.',mltply = x)
+WorkTwoDescL1 = Descr('- Description line 1;',mltply = x)
+WorkTwoDescL2 = Descr('- Description line 2',mltply = x)
+WorkTwoDescL3 = Descr('  Description line 3',mltply = x)
 
 
-WorkThreeTitle = Title('Ferrero SPA / R&D Engineer',mltply = x)
-WorkThreePlace = Place('Alba, Italy',mltply = x)
+WorkThreeTitle = Title('Company Name, Role',mltply = x)
+WorkThreePlace = Place('Work Place, Work Country',mltply = x)
 WorkThreeTime = Time('2011-2013',mltply = x)
-WorkThreeDesc = Descr('- Scaling up of pilot plant for snack packaging',mltply = x)
+WorkThreeDesc = Descr('- Description line 1',mltply = x)
 
 #education
 
 EduHeader = Header('EDUCATION',mltply = x)
-EduOneTitle = Title('Master\'s degree in Chemical Engineering',mltply = x) 
-EduOnePlace = Place('Politecnico di Torino, Italy',mltply = x)
+EduOneTitle = Title('Master\'s degree in Some Faculty',mltply = x) 
+EduOnePlace = Place('Some University, Some Country',mltply = x)
 EduOneTime = Time('2015',mltply = x)
 EduOneDesc1L1 = Descr('- Project Management, Algorithms for Plant Design',mltply = x)
 EduOneDesc1L2 = Descr('  Basic Programming skills (C++, Python, Matlab) ',mltply = x)
-EduTwoTitle = Title('Lean Six Sigma Black Belt, CROSSNOVA',mltply = x)
+EduTwoTitle = Title('Lean Six Sigma Black Belt, Some Company',mltply = x)
 EduTwoTime = Time('2020',mltply = x)
 EduOneDesc2L1 = Descr('- Brainstorming, statistics, FMEA, C&E diagram,',mltply = x)
 EduOneDesc2L2 = Descr('  control plans, DOE, Measurement System Analysis',mltply = x)
@@ -246,8 +252,7 @@ SkillsDesc1L4 = Lateral('- Web Scraping:',mltply =x)
 SkillsDesc1L5 = Lateral('   Selenium, Beautiful Soup.',mltply =x)
 SkillsDesc1L6 = Lateral('- Testing:',mltply =x)
 SkillsDesc1L7 = Lateral('   Unittest, Pytest, Silk',mltply =x)
-SkillsDesc1L8 = Lateral('- Version Control:',mltply =x)
-SkillsDesc1L9 = Lateral('   Git',mltply =x)
+SkillsDesc1L8 = Lateral('- Version Control: Git',mltply =x)
 SkillsDesc1L10 = Lateral('- Data Structures, Algorithms',mltply =x)
 SkillsTitle2 = Lateral_title('Other Skills', mltply=x)
 SkillsDesc2L1 = Lateral('- Database Design and Management:',mltply=x)
@@ -255,13 +260,20 @@ SkillsDesc2L2 = Lateral('   SQL, MySQL, noSQL',mltply=x)
 SkillsDesc2L3 = Lateral('- Probability and Statistics',mltply=x)
 SkillsDesc2L4 = Lateral('- Troubleshooting',mltply=x)
 SkillsTitle3 = Lateral_title('Soft Skills',mltply=x)
-SkillsDesc3L1 = Lateral('- Communication',mltply=x)
+SkillsDesc3L1 = Lateral('- Strong Communication',mltply=x)
 SkillsDesc3L2 = Lateral('- Team work',mltply=x)
 SkillsDesc3L3 = Lateral('- Time Management',mltply=x)
 SkillsDesc3L4 = Lateral('- Negotiation',mltply=x)
 ExtrasTitle = Lateral('DataQuest\nData Scientist Path', mltply=x)
 
+Languages = Lateral_title('Languages')
+Language1 = Lateral('- English: c1')
+Language2 = Lateral('- Spanish: b1')
+Language3 = Lateral('- Polish: a2')
+
 CodeTitle = Lateral_title('View Portfolio', mltply=x)
+
+#defining the block trains
 
 train_info = Train(Header1, Name1, Pers1)
 train_title = Train(Title1)
@@ -271,7 +283,7 @@ train_work = Train(WorkHeader, WorkOneTitle, WorkOneTime, WorkOnePlace, WorkOneD
                             WorkThreeTitle, WorkThreeTime, WorkThreePlace, WorkThreeDesc)
 train_education = Train(EduHeader,EduOneTitle,EduOneTime,EduOnePlace,EduOneDesc1L1,EduOneDesc1L2,EduTwoTitle,EduTwoTime,EduOneDesc2L1,EduOneDesc2L2)
 
-train_contact_title = Train(Contact_info)
+train_contact_title = Train(Info1)
 train_contacts = Train(Contact1)
 
 train_lateral_header = Train(SkillsHeader)
@@ -279,26 +291,33 @@ train_lateral_header = Train(SkillsHeader)
 train_lateral_1 = Train(SkillsTitle1,
                      SkillsDesc1L1, SkillsDesc1L2, SkillsDesc1L3, SkillsDesc1L4, 
                      SkillsDesc1L5, SkillsDesc1L6, SkillsDesc1L7, SkillsDesc1L8,
-                     SkillsDesc1L9, SkillsDesc1L10)
+                     SkillsDesc1L10)
 
 train_lateral_2 = Train(SkillsTitle2,
                      SkillsDesc2L1, SkillsDesc2L2, SkillsDesc2L3, SkillsDesc2L4)
 train_lateral_3 = Train(SkillsTitle3,
                      SkillsDesc3L1, SkillsDesc3L2, SkillsDesc3L3, SkillsDesc3L4)
 
+train_language = Train(Languages, Language1, Language2, Language3)
+
 train_code = Train(CodeTitle)
 
 #setting plot
 fig, ax = plt.subplots(figsize=(8.5*x, 11*x))
+
+#in edit mode enable the following lines to show the ticks on upper x-axes
 #ax2 = ax.twiny()
+
 #remove axis
 plt.axis('off')
 
-plt.axvline(x=.99, color=headers_color, alpha=0.5, linewidth=300*x)
+#setting the colored bar (optional) in two parts
+plt.axvline(x=.99, color=headers_color, alpha=1, linewidth=300*x)
 plt.axhline(y=.8, xmin=0, xmax=1, color='#ffffff', linewidth=3)
 
+#setting the paragraphs
 personal_data = Paragraph((.2,.98), train_info)
-title = Paragraph((.2, 0.87), train_title)
+title = Paragraph((.2, 0.855), train_title)
 
 projects = Paragraph((.02, 0.82), train_projects)
 work = Paragraph((0.02, 0.605),train_work)
@@ -308,24 +327,26 @@ contact_title = Paragraph((0.76,0.980),train_contact_title)
 contact = Paragraph((0.68,0.82),train_contacts)
 
 skills_0 =Paragraph((0.76,0.775),train_lateral_header)
-skills_1 = Paragraph((0.68,0.735),train_lateral_1)
-skills_2 = Paragraph((0.68,0.49),train_lateral_2)
-skills_3 = Paragraph((0.68,0.370),train_lateral_3)
+skills_1 = Paragraph((0.68,0.745),train_lateral_1)
+skills_2 = Paragraph((0.68,0.525),train_lateral_2)
+skills_3 = Paragraph((0.68,0.41),train_lateral_3)
 
-code = Paragraph((0.68,0.235), train_code)
+language_ = Paragraph((0.68, 0.3), train_language)
+
+code = Paragraph((0.68,0.205), train_code)
 
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 import matplotlib.image as mpimg
-arr_code = mpimg.imread(r'C:\Users\mmari\Pictures\Stefanogaldo.png')
+arr_code = mpimg.imread(r'rcode.png')
 imagebox = OffsetImage(arr_code, zoom=0.5)
-ab = AnnotationBbox(imagebox, (0.84, 0.12))
+ab = AnnotationBbox(imagebox, (0.84, 0.105))
 ax.add_artist(ab)
-my_pict = mpimg.imread(r'C:\Users\mmari\Pictures\profile.jpg')
+my_pict = mpimg.imread(r'profile.jpg')
 profilebox = OffsetImage(my_pict, zoom=0.5)
 ab2 = AnnotationBbox(profilebox, (0.1, 0.925))
 ax.add_artist(ab2)
 
-plt.savefig(r'C:\Users\mmari\Pictures\resumeexample.png', dpi=300, bbox_inches='tight')
-plt.savefig(r'C:\Users\mmari\Pictures\resumeexample.pdf', bbox_inches='tight')
+plt.savefig(r'resumeexample.png', dpi=300, bbox_inches='tight')
+plt.savefig(r'resumeexample.pdf', bbox_inches='tight')
 
 plt.show()
